@@ -1,4 +1,5 @@
 #summary A list of Online Resources for the Project
+#labels Featured
 
 List any useful websites that you find here.
 
