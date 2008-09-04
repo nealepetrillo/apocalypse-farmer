@@ -11,6 +11,7 @@ class GameBoard extends MovieClip
 	Sprite backgroundImg
 	Array hexList
 }}}	
+{{{
 class Hex extends Button
 	Hex()
 	Hex(Button)
@@ -25,7 +26,8 @@ class Hex extends Button
 	uint movementBonus
 	uint maxPopluation
 	uint positionIndex
-
+}}}
+{{{
 class Village extends Button
 	Village()
 	Village(uint numberOfPeople)
@@ -34,7 +36,8 @@ class Village extends Button
 	float productionBonus
 	float radiationBonus
 	uint currentPopulation	
-
+}}}
+{{{
 class GamePiece extends Button
 	GamePiece(uint size)
 	GamePiece(String UNIT_TYPE)
@@ -43,7 +46,8 @@ class GamePiece extends Button
 	uint defensiveValue
 	uint offensiveValue
 	uint movementValue
-
+}}}
+{{{
 class Player
 	Player()
 	String name
@@ -53,5 +57,5 @@ class Player
 	bool technologyWin
 	Array indecesOfVillages
 	Array  indecesOfGamePieces
-
+}}}
 *Feel free to edit this list, but please leave a note in the log if you do.*
