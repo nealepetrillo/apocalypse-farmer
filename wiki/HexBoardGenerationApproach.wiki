@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Generating the hex board quickly.
 #labels Phase-Design,Phase-Implementation
 
 = Introduction =
