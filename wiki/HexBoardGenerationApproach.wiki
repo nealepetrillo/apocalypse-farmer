@@ -1,7 +1,5 @@
 #labels Phase-Design,Phase-Implementation
-#Generating the hex board.
-
-= Generating the hex board quickly so other program components can reference it. =
+=Generating the hex board quickly so other program components can reference it.=
 
 Although the temptation for vector based board generation is strong due to the resize ability of vectors, in the interest of time, I think we should stay with using bitmaps.  
 
