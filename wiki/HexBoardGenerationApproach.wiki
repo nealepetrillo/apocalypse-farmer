@@ -11,7 +11,8 @@ components can reference the board as quickly as possible.
 During the development phase, the hexes can have numbers on them (row/col).  
 Then when the game is closer to being complete, the board can be re-generated 
 without those numbers and replaced with cut-paste bitmap artwork representing the 
-various terrain types.  (That would be tedious but simple work)
+various terrain types.  (That would be tedious but simple work)  The default size
+of 44 pixles per hex side is ideal for the size required for artwork.  
 
 The initialization game code would consist of the bitmap being put on the layer
 as an object referencing the bitmap.  Then, each actionscript hex object would 
