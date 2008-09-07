@@ -1,21 +1,17 @@
-#summary One-sentence summary of this page.
 #labels Phase-Design,Phase-Implementation
+#Generating the hex board.
 
-= Introduction =
-
-Generating the hex board.
-
-= Details =
+= Generating the hex board quickly so other program components can reference it. =
 
 Although the temptation for vector based board generation is strong due to the resize ability of vectors, in the interest of time, I think we should stay with using bitmaps.  
 
-Here is my suggestion on how gameboard development could go. 
+Here is my suggestion on how a quick hex environment could be generated. 
 
 The freeware program *Draw Hexgrid 2.3* can be used to generate a bitmap board
 that can establish the structure of the game at an early stage so other game
 components can reference the board as quickly as possible.
  
-During the development phase, the hexes can have numbers on them (row/col).  
+During the early development phase, the hexes can have numbers on them (row/col).  
 Then when the game is closer to being complete, the board can be re-generated 
 without those numbers and replaced with cut-paste bitmap artwork representing the 
 various terrain types.  (That would be tedious but simple work)  The default size
@@ -24,7 +20,7 @@ of *44 pixles per hex side* is ideal for the size required for artwork.
 The initialization game code would consist of the bitmap being put on the layer
 as an object referencing the bitmap.  Then, each actionscript hex object would 
 be updated with the terrain data for each hex.  Initially, one map would be all that
-would be needed.  However, an additional map could easily be added (perhaps
+would be needed.  However, an additional map and map data could easily be added (perhaps
 as a more difficult level).  
 
 Terrain improvements such as new structures, player pieces and of course
