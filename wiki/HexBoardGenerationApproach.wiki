@@ -1,11 +1,10 @@
-=Heading1=
-Generating the hex board.
+=Generating the hex board.=
 
 Although the temptation for vector based board generation is strong due to the resize ability of vectors, in the interest of time, I think we should stay with using bitmaps.  
 
 Here is my suggestion on how gameboard development could go. 
 
-The freeware program "Draw Hexgrid 2.3" can be used to generate a bitmap board
+The freeware program *Draw Hexgrid 2.3* can be used to generate a bitmap board
 that can establish the structure of the game at an early stage so other game
 components can reference the board as quickly as possible.
  
@@ -26,7 +25,7 @@ different layer on the stage.
 
 A copy of the hex generator program is available at:
 
-http://cryhavocgames.net/Tutorials_Utilities.htm
+[http://cryhavocgames.net/Tutorials_Utilities.htm]
 
 Since the map will likely be larger than the screen area can display, a decision on scrolling will need to be made.  I think flash has the performance to handle a scrolling bitmap.  If not, the hex board could be moved by hex sized jumps.
 
