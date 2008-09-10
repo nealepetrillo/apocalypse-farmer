@@ -3,25 +3,25 @@
 
 
 *Apocalypse Farmer Rule Set*
-  #Each player shall start with one town.
-  #Each town shall give 10 base population.
-  #Each town shall control it's hex and all adjacent hexes.
-  #Now two towns shall control the same hex.
-  #Each town shall be able to set it's open population to either armies or civilians, divisible at the player's discretion.
-  #Each town's maximum population shall increase at the rate if one every 20 turns minus the productivity bonus of all hexes controlled by said town.
-  #For each army created, the maximum population of the creating town shall be decremented by an equal amount.
-  #The player shall be able to turn civilians into armies.
-  #Each army shall be able to found a new town in a legitimate hex at the cost of 1/2 it's size rounded up. That town shall have a maximum population and defense bonus equal to the lost army.
-  #For every 5 turns a town is on the map, it's defense bonus shall increment by one.
-  #Each army shall be able to move 1 hex per turn.
-  #Each army shall have an attack base equal to two per population in said army.
-  #Each hex shall have a terrain type from the following list: plains, town, swamp, hill, impassible, or forest.
-  #Plains shall give +1 productivity bonus, +1 attack bonus, and +0 defense bonus.
-  #Towns shall give +3 productivity bonus, +0 attack bonus, +3 defense bonus.
-  #Swamps shall give -1 productivity bonus, +1 attack bonus, +1 defense bonus.
-  #Hills shall give +0 productivity bonus, +1 attack bonus, +2 defense bonus.
-  #Impassible shall give -3 productivity bonus.
-  #Forests shall give +1 productivity bonus, +2 attack bonus, +2 defense bonus.
-  #Attack bonus of a hex shall be given to armies attacking from said hex.
-  #Defense bonus of a hex shall be given to armies defending said hex.
-  #No movement shall be allowed in Impassible terrain. 
+  # Each player shall start with one town.
+  # Each town shall give 10 base population.
+  # Each town shall control it's hex and all adjacent hexes.
+  # Now two towns shall control the same hex.
+  # Each town shall be able to set it's open population to either armies or civilians, divisible at the player's discretion.
+  # Each town's maximum population shall increase at the rate if one every 20 turns minus the productivity bonus of all hexes controlled by said town.
+  # For each army created, the maximum population of the creating town shall be decremented by an equal amount.
+  # The player shall be able to turn civilians into armies.
+  # Each army shall be able to found a new town in a legitimate hex at the cost of 1/2 it's size rounded up. That town shall have a maximum population and defense bonus equal to the lost army.
+  # For every 5 turns a town is on the map, it's defense bonus shall increment by one.
+  # Each army shall be able to move 1 hex per turn.
+  # Each army shall have an attack base equal to two per population in said army.
+  # Each hex shall have a terrain type from the following list: plains, town, swamp, hill, impassible, or forest.
+  # Plains shall give +1 productivity bonus, +1 attack bonus, and +0 defense bonus.
+  # Towns shall give +3 productivity bonus, +0 attack bonus, +3 defense bonus.
+  # Swamps shall give -1 productivity bonus, +1 attack bonus, +1 defense bonus.
+  # Hills shall give +0 productivity bonus, +1 attack bonus, +2 defense bonus.
+  # Impassible shall give -3 productivity bonus.
+  # Forests shall give +1 productivity bonus, +2 attack bonus, +2 defense bonus.
+  # Attack bonus of a hex shall be given to armies attacking from said hex.
+  # Defense bonus of a hex shall be given to armies defending said hex.
+  # No movement shall be allowed in Impassible terrain. 
