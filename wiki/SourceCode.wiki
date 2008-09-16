@@ -1,4 +1,5 @@
 #summary Important Notice Re: Source Code
+#labels Featured,Phase-Design,Phase-Implementation
 
 As of now, all source code is up to date, and available via the "Source" tab at the top of the page. It's located under Svn -> Trunk -> CS345. I believe this link should go straight to it:
 http://code.google.com/p/apocalypse-farmer/source/browse/#svn/trunk/CS345
