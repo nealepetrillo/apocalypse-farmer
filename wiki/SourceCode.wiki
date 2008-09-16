@@ -1,0 +1,8 @@
+#summary Important Notice Re: Source Code
+
+As of now, all source code is up to date, and available via the "Source" tab at the top of the page. It's located under Svn -> Trunk -> CS345. I believe this link should go straight to it:
+http://code.google.com/p/apocalypse-farmer/source/browse/#svn/trunk/CS345
+
+If you want to run the game, you'll need all the .as files and the .fla file. If you like, I've also included a Flash Project (.flp) file so that you can easily make sure you have all the necessary files, and test the project directly rather than opening up all the different files in flash. 
+
+If you want to make changes to the source code, please come talk to me or Neale (since I don't really expect we'll be using the svn checkout function much). 
