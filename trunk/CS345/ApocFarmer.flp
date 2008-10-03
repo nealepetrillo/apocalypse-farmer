@@ -1,0 +1,9 @@
+﻿<flash_project name="ApocFarmer" version="1">
+    <project_file path="./ApocFarmer.as" filetype="as" />
+    <project_file path="./ApocFarmer.fla" filetype="fla" profile="" def_file="true" />
+    <project_file path="./GamePiece.as" filetype="as" />
+    <project_file path="./Hex.as" filetype="as" />
+    <project_file path="./AIPlayer.as" filetype="as" />
+    <project_file path="./GameMenu.as" filetype="as" />
+    <project_file path="./Village.as" filetype="as" />
+</flash_project>
