@@ -4,5 +4,6 @@
      [http://livedocs.adobe.com/flash/9.0/ActionScriptLangRefV3/ Actionscript 3.0 API]
 
 Open Dialect and FlashDevelop are two IDEs for Actionscript 3.0 editing. They're free and open source. 
-     <p>[http://dialect.openmodeling.net/wiki OpenDialect Flash IDE]</p>
+     [http://dialect.openmodeling.net/wiki OpenDialect Flash IDE]
+
      [http://www.flashdevelop.org/community/index.php FlashDevelop Actionscript 3.0 IDE]
