@@ -4,6 +4,5 @@
     <project_file path="./GamePiece.as" filetype="as" />
     <project_file path="./Hex.as" filetype="as" />
     <project_file path="./AIPlayer.as" filetype="as" />
-    <project_file path="./GameMenu.as" filetype="as" />
-    <project_file path="./Village.as" filetype="as" />
+    <project_file path="./HorizontalGameMenu.as" filetype="as" />
 </flash_project>

@@ -40,13 +40,13 @@
 		public static var DEF_VALUE = 4;
 		
 		public static var VILLAGE:uint = 1;
-		public static var VILLAGE_STATS = [0,20,10,5,10]
+		private static var VILLAGE_STATS = [0,20,10,5,10]
 										   
 		public static var TOWN:uint = 2;
 		private static var TOWN_STATS:Array = [20,50,20,10,20]
 		
 		public static var CITY:uint = 3;
-		public static var CITY_STATS = [40,80,30,15,30]
+		private static var CITY_STATS = [40,80,30,15,30]
 		
 		public static var communityTypes = new Array([VILLAGE_STATS, TOWN_STATS, CITY_STATS]);
 		
@@ -56,8 +56,8 @@
 		public var aiPlayers:Array = new Array();
 		public var hMenu:HorizontalGameMenu;
 		
-		public var selectedHex = null;
-		public var selectedPiece = null;
+		public var selectedHex:Hex = null;
+		public var selectedPiece:GamePiece = null;
 				//////////////////constructors/////////////////////
 		public function ApocFarmer():void {
 			var startNewGame:NewGame = new NewGame();
