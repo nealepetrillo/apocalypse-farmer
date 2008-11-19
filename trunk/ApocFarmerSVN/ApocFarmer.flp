@@ -6,4 +6,5 @@
     <project_file path="./AIPlayer.as" filetype="as" />
     <project_file path="./HorizontalGameMenu.as" filetype="as" />
     <project_file path="./AFTurn.as" filetype="as" />
+    <project_file path="./CombatEvent.as" filetype="as" />
 </flash_project>
