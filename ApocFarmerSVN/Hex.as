@@ -19,6 +19,8 @@
 		private var myMoveValue:Number;
 		public var myGame:ApocFarmer;
 		private var myCommunity:Community = null;
+		//direction of bordering hexes constants
+		public 
 		
 		public function Hex(game:ApocFarmer):void {
 			myGame = game;
@@ -60,6 +62,8 @@
 		public function addPiece(gp:GamePiece) {
 			myPieces.push(gp);
 			addChild(gp);
+			if(causesBattle(gp)) {
+				throw new CombatEvent();
 		}
 		public function selectPiece():GamePiece {
 			return myPieces[0];
