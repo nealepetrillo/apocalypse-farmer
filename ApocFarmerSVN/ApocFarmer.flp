@@ -7,12 +7,9 @@
     <project_file path="./HorizontalGameMenu.as" filetype="as" />
     <project_file path="./AFTurn.as" filetype="as" />
     <project_file path="./CombatEvent.as" filetype="as" />
-    <project_file path="./HexBoard.pdf" filetype="pdf" />
     <project_file path="./Community.as" filetype="as" />
-    <project_file path="./GameMenu.as" filetype="as" />
     <project_file path="./PhaseEvent.as" filetype="as" />
     <project_file path="./PieceInfo.as" filetype="as" />
     <project_file path="./Player.as" filetype="as" />
-    <project_file path="./Village.as" filetype="as" />
     <project_file path="./ApocFarmer.swf" filetype="swf" />
 </flash_project>
