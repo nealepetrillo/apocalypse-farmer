@@ -20,7 +20,12 @@
 		public var myGame:ApocFarmer;
 		private var myCommunity:Community = null;
 		//direction of bordering hexes constants
-		public 
+		public var N:Hex = null;
+		public var NE:Hex = null;
+		public var SE:Hex = null;
+		public var S:Hex = null;
+		public var SW:Hex = null;
+		public var NW:Hex = null;
 		
 		public function Hex(game:ApocFarmer):void {
 			myGame = game;
@@ -83,26 +88,34 @@
 			*/
 			//detect a corner hex
 			if (this.column == 0 && this.row == 0) { 						//NW corner
-				borderingHexes.push(allHexes[column+1][row]);
-				borderingHexes.push(allHexes[column+1][row+1]);
-				borderingHexes.push(allHexes[column][row+1]);
+				borderingHexes.push(NE = allHexes[column+1][row]);
+				borderingHexes.push(SE = allHexes[column+1][row+1]);
+				borderingHexes.push(S = allHexes[column][row+1]);
 			} 
 			else if (this.column == 0 && this.row == allHexes[column].length-1) { //SW corner
-				borderingHexes.push(allHexes[column][row-1]);
-				borderingHexes.push(allHexes[column+1][row]);
+				borderingHexes.push(N = allHexes[column][row-1]);
+				borderingHexes.push(NE = allHexes[column+1][row]);
 			}
 			else if (this.column == allHexes.length -1) {
 				if (this.row == 0) { 										//NE corner
-					borderingHexes.push(allHexes[column-1][row]);
-					borderingHexes.push(allHexes[column][row+1]);
-					if (!this.isUpperHex()) 				//checks for odd column
-						borderingHexes.push(allHexes[column-1][row+1]);
+					if(this.isUpperHex()) {
+						borderingHexes.push(SW = allHexes[column-1][row]);
+						borderingHexes.push(S = allHexes[column][row+1]);
+					} else {
+						borderingHexes.push(NW = allHexes[column-1][row]);
+						borderingHexes.push(S = allHexes[column][row+1]);						
+						borderingHexes.push(SW = allHexes[column-1][row+1]);
+					}
 				}
 				else if (this.row == allHexes[column].length-1) { 		//SE corner
-					borderingHexes.push(allHexes[column][row-1]);
-					borderingHexes.push(allHexes[column-1][row]);
-					if (this.isUpperHex()) 				//checks for odd column
-						borderingHexes.push(allHexes[column-1][row-1]);
+					if (this.isUpperHex() ) {
+						borderingHexes.push(N = allHexes[column][row-1]);
+						borderingHexes.push(SW = allHexes[column-1][row]);
+						borderingHexes.push(NW = allHexes[column-1][row-1]);
+					} else {
+						borderingHexes.push(N = allHexes[column][row-1]);
+						borderingHexes.push(NW = allHexes[column-1][row]);
+					}
 				}
 				else { //right edge
 					borderingHexes.push(allHexes[column][row-1]);
