@@ -7,25 +7,16 @@
 		private var row:uint;
 		private var column:uint;
 		public var borderingHexes:Array = new Array();
-		private var playerOwned:Boolean = false;
 		private var unoccupied:Boolean = true;
-		private var myAI:AIPlayer = null;
+		public var myPlayer:Player = null;
 		public var myPieces:Array = new Array();
 		private var displayStrength:TextField = new TextField();
-		private var myVillage:Village = null;
-		private var myTerrainType:uint;
-		private var myProdBonus:Number;
-		private var myDefBonus:Number;
-		private var myMoveValue:Number;
+		public var myTerrainType:uint;
+		public var myProdBonus:Number;
+		public var myDefBonus:Number;
+		public var myMoveValue:Number;
 		public var myGame:ApocFarmer;
 		private var myCommunity:Community = null;
-		//direction of bordering hexes constants
-		public var N:Hex = null;
-		public var NE:Hex = null;
-		public var SE:Hex = null;
-		public var S:Hex = null;
-		public var SW:Hex = null;
-		public var NW:Hex = null;
 		
 		public function Hex(game:ApocFarmer):void {
 			myGame = game;
@@ -48,27 +39,20 @@
 			myMoveValue = ApocFarmer.terrainTypes[myTerrainType][ApocFarmer.MOV_VALUE];
 			gotoAndStop(myTerrainType + ApocFarmer.FRAME_OFFSET);
 		}//end setTerrain
-		public function foundCommunity(cType:uint, pop:uint, rus:uint) {
-			myCommunity = new Community();
-			myCommunity.gotoAndStop(cType);
-			myCommunity.stats = {type:cType, population:pop, resources:rus, task:"IDLE"};
-			playerOwned = true;
-			addChild(myCommunity);
-			myCommunity.addEventListener(MouseEvent.CLICK,clickedCommunity);
-		}//end foundVillage
-		public function foundAICommunity(cType:uint, pop:uint, rus:uint, ai:AIPlayer){
-			myCommunity = new Community();
-			myCommunity.gotoAndStop(cType);
-			myCommunity.stats = {type:cType, population:pop, resources:rus, task:"IDLE"};
-			playerOwned = false;
-			myAI = ai;
-			addChild(myCommunity);
+		public function foundCommunity(piece:GamePiece){
+			if(piece.resources > 10 && piece.population > 10) {
+				myCommunity = new Community(piece.population,piece.resources,this);
+				myPlayer = piece.myPlayer;
+				addChild(myCommunity);
+			}
+			else {
+				trace("not enough resources to found community");
+				return; 
+			}
 		}
 		public function addPiece(gp:GamePiece) {
 			myPieces.push(gp);
 			addChild(gp);
-			if(causesBattle(gp)) {
-				throw new CombatEvent();
 		}
 		public function selectPiece():GamePiece {
 			return myPieces[0];
@@ -180,6 +164,7 @@
 				}//end if - else upper internal hex
 			}//end else intenrnal hex
 		}//end setNeighbors(Array)
+
 		public function isNeighboring(anotherHex:Hex):Boolean {
 			for (var i:uint = 0; i < borderingHexes.length; i++) {
 				if (borderingHexes[i] == anotherHex)

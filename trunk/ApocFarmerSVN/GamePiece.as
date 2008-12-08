@@ -5,19 +5,24 @@
 	
 	public class GamePiece extends MovieClip {
 		private var type:String;
-		private var strength:uint;
+		public var resources:uint;
+		public var population:uint;
 		private var myHex:Hex;
 		private var movesPerTurn:uint;
 		private var movesLeft:uint;
 		public var myDisplayInfo:PieceInfo;
+		public var myPlayer:Player;
 		
 		public static var ARMY_UNIT:String = "This GamePices is an army unit.";
 		public static var DEFAULT_MOVEMENT_VALUE:uint = 1;
 		
-		public function GamePiece(whereIAm:Hex, howStrongIAm:uint, whatIAm:String):void {
+		public function GamePiece(whereIAm:Hex, pop:uint, res:uint, whatIAm:String, aPlayer:Player):void {
 			myDisplayInfo = new PieceInfo(this);
 			myHex = whereIAm;
-			strength = howStrongIAm;
+			myPlayer = aPlayer;
+			myPlayer.addPiece(this);
+			resources = res;
+			population = pop;
 			type = whatIAm;
 			movesPerTurn = DEFAULT_MOVEMENT_VALUE;
 			x = (ApocFarmer.HEX_WIDTH-this.width+5)/2;
@@ -34,12 +39,18 @@
 		public function unSelect() {
 			myDisplayInfo.gotoAndStop(1);
 		}
-		public function alterStrength(alterByThisMuch:int):void {
-			strength += alterByThisMuch;
+		public function alterPop(pop:uint) {
+			population += pop;
 		}//end alterStrength
+		
+		public function alterResources(res:uint) {
+			resources += res; 
+		}//end alterResources
+		
 		public function gamePieceClicked(event:MouseEvent) {
 			return;
 		}//end gamePieceClicked
+		
 		public function moveToHex(newHex:Hex):Boolean{
 			if ( /*(movesLeft > 0) &&*/ myHex.isNeighboring(newHex) ) {
 				myHex.myPieces.splice(myHex.myPieces.indexOf(this,1));
@@ -56,13 +67,17 @@
 			var t:TextField = new TextField();
 			var tf:TextFormat = new TextFormat();
 			tf.size = 40;
-			t.text = String(strength);
+			t.text = String(population);
 			t.type = TextFieldType.DYNAMIC;
 			t.selectable = false;
 			t.setTextFormat(tf);
 			myDisplayInfo.addChild(t);
 			return myDisplayInfo;
 		}//end displayInfo
+		
+		public function getLocation():Hex {
+			return myHex;
+		}
 		
 		
 	}//end class

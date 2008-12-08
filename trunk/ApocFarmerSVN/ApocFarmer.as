@@ -113,12 +113,13 @@
 			var randRow:uint = Math.floor(Math.random()*(BOARD_ROWS));
 			var randCol:uint = Math.floor(Math.random()*BOARD_COLUMNS);
 			var h:Hex = hexList[randCol][randRow];
-			h.foundCommunity(TOWN, 25, 30);
-			new GamePiece(h, 5, GamePiece.ARMY_UNIT);
-			new GamePiece(h,15, GamePiece.ARMY_UNIT);
+			//h.foundCommunity(TOWN, 25, 30); 
+			
+			new GamePiece(h, 5, 5, GamePiece.ARMY_UNIT,null);
+			new GamePiece(h, 20, 20, GamePiece.ARMY_UNIT,null);
 			for (i = 0; i < pieces.length; i++) {
 			}//end for initialize pieces
-			
+
 		}//end initializePlayers
 		public function boardClick(h:Hex) {
 			if (selectedPiece != null) {
