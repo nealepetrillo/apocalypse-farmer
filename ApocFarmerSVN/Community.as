@@ -31,12 +31,12 @@
 		{			
 			for(int i = communityTypes.length - 1;i >= 0;--i)
 			{
-				if(rus >= communityTypes[i][0])
+				if(rus >= communityTypes[i][UPGRADE_COST])
 				{
 					myType = i;
 					myPop = pop;
 					myResources = rus - communityTypes[i][0];
-					i = -1;
+					i = -1;//ghetto BREAK statement 
 				}
 			}
 		}
