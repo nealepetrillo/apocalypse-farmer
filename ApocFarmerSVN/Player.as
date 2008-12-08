@@ -12,12 +12,17 @@
 			playerNum = playerNumber;
 		}
 		
+		public function getPlayerNum():uint
+		{
+			return playerNum;
+		}
+		
 		public function addCommunity(c:Community):void
 		{
 			communities.push(c); 
 		}
 		
-		public function addArmy(a:GamePiece):void
+		public function addPiece(a:GamePiece):void
 		{
 			armies.push(a);
 		}
