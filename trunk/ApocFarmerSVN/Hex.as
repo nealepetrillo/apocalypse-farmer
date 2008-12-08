@@ -118,37 +118,47 @@
 					}
 				}
 				else { //right edge
-					borderingHexes.push(allHexes[column][row-1]);
-					borderingHexes.push(allHexes[column][row+1]);
-					borderingHexes.push(allHexes[column-1][row]);
-					if (this.isUpperHex())
-						borderingHexes.push(allHexes[column-1][row-1]);
-					else 
-						borderingHexes.push(allHexes[column-1][row+1]);
+					if (this.isUpperHex() ) {
+						borderingHexes.push(N = allHexes[column][row-1]);
+						borderingHexes.push(S = allHexes[column][row+1]);
+						borderingHexes.push(SW = allHexes[column-1][row]);
+						borderingHexes.push(NW = allHexes[column-1][row-1]);
+					}
+					else {
+						borderingHexes.push(N = allHexes[column][row-1]);
+						borderingHexes.push(S = allHexes[column][row+1]);
+						borderingHexes.push(NW = allHexes[column-1][row]);
+						borderingHexes.push(SW = allHexes[column-1][row+1]);
+					}
 				}//end else right edge
 			}
 			else if (this.row == 0) { //if upper edge
 					if (this.isUpperHex()) {
-						borderingHexes.push(allHexes[column-1][row]);
-						borderingHexes.push(allHexes[column][row+1]);
-						borderingHexes.push(allHexes[column+1][row]);
+						borderingHexes.push(SW = allHexes[column-1][row]);
+						borderingHexes.push(S = allHexes[column][row+1]);
+						borderingHexes.push(SE = allHexes[column+1][row]);
 					} 
 					else {
-						borderingHexes.push(allHexes[column-1][row]);
-						borderingHexes.push(allHexes[column-1][row+1]);
-						borderingHexes.push(allHexes[column][row+1]);
-						borderingHexes.push(allHexes[column+1][row+1]);
-						borderingHexes.push(allHexes[column+1][row]);
+						borderingHexes.push(NW = allHexes[column-1][row]);
+						borderingHexes.push(SW = allHexes[column-1][row+1]);
+						borderingHexes.push(S = allHexes[column][row+1]);
+						borderingHexes.push(SE = allHexes[column+1][row+1]);
+						borderingHexes.push(NE = allHexes[column+1][row]);
 					}
 				}//end if-else upper edge
 			else if (this.row == allHexes[column].length-1) { //if bottom edge
-					borderingHexes.push(allHexes[column-1][row]);
-					borderingHexes.push(allHexes[column][row-1]);
-					borderingHexes.push(allHexes[column+1][row]);
-					if (this.isUpperHex())
+					if (this.isUpperHex() ) {
+						borderingHexes.push(allHexes[column-1][row]);
+						borderingHexes.push(N = allHexes[column][row-1]);
+						borderingHexes.push(allHexes[column+1][row]);
 						borderingHexes.push(allHexes[column-1][row-1]);
-					borderingHexes.push(allHexes[column+1][row-1]);
-				}//end if bottome edge
+					}
+					else {
+						borderingHexes.push(allHexes[column-1][row]);
+						borderingHexes.push(N = allHexes[column][row-1]);
+						borderingHexes.push(allHexes[column+1][row]);
+					}
+				}//end if bottom edge
 			else if (this.column == 0) { //if left edge
 					borderingHexes.push(allHexes[column][row-1]);
 					borderingHexes.push(allHexes[column+1][row]);
