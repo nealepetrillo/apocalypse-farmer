@@ -17,6 +17,10 @@
 		public function startTurn():void {
 			phaseOne();
 			phaseTwo();
+			for (var i:uint = 0; i < communities.length; i++) {
+				if(--communities[i].locked < 0)
+					communities[i].locked = 0;
+			}//end for
 		}
 		
 		private function phaseOne():void {
@@ -49,7 +53,7 @@
 		}//end function
 		
 		private function phaseTwo():void {
-			
+			activeArmy = armies.length-1;
 			//Found Community
 			if (armies.length > 0) {
 				if(armies[activeArmy].myHex.myCommunity == null){
@@ -61,15 +65,17 @@
 			for(var i:int = 0; i<communities.length; ++i) {
 				
 				if(communities[i].locked == 0) {
-					if((communities[i].myHex.myPieces.length != 0) 
-						&& communities[i].canReinforce()){
+					if((communities[i].myHex.myPieces.length != 0) && communities[i].canReinforce()){
 						communities[i].reinforce(communities[i].myHex.myPieces[0], 10);
+						trace(this + "is reinforcing.");
 					}
 					else if(communities[i].canCreateArmy(10)) {
 						communities[i].createArmy(10);
+						trace(this + "is building army");
 					}
 					else{
 						communities[i].produce();
+						trace(this + "is producing");
 					}//end if
 				}//end if
 			}//end for		
