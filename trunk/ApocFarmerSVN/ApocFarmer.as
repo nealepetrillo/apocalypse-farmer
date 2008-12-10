@@ -4,55 +4,60 @@
 	
 	public class ApocFarmer extends MovieClip{
 				//////////////variable declarations////////////
-		public static var BOARD_ROWS:uint = 8;
-		public static var BOARD_COLUMNS:uint = 13;
-		public static var HEX_HEIGHT:uint = 46;
-		public static var HEX_WIDTH:uint = 53;
-		public static var WIDTH_OFFSET:uint = 40;
-		public static var HEIGHT_OFFSET:uint = 23;
-		public static var HEX_BOARD_FRAME:uint = 2;
+		public static const BOARD_ROWS:uint = 8;
+		public static const BOARD_COLUMNS:uint = 13;
+		public static const HEX_HEIGHT:uint = 46;
+		public static const HEX_WIDTH:uint = 53;
+		public static const WIDTH_OFFSET:uint = 40;
+		public static const HEIGHT_OFFSET:uint = 23;
+		public static const HEX_BOARD_FRAME:uint = 2;
 		private var hexList:Array = new Array();
 		
-		public static var TERRAIN_STATS:Array = ["Productivity Bonus", "Defense Bonus", "Movement Value"]
-		public static var PROD_BONUS:uint = 0;
-		public static var DEF_BONUS:uint = 1;
-		public static var MOV_VALUE:uint = 2;
+		public static const TERRAIN_STATS:Array = ["Productivity Bonus", "Defense Bonus", "Movement Value"]
+		public static const PROD_BONUS:uint = 0;
+		public static const DEF_BONUS:uint = 1;
+		public static const MOV_VALUE:uint = 2;
 		
 		
-		public static var PLAINS:uint = 0;
-		private static var PLAINS_STATS:Array = [5,0,1]
+		public static const PLAINS:uint = 0;
+		private static const PLAINS_STATS:Array = [5,0,1]
 		
-		public static var SWAMP:uint = 1;
-		private static var SWAMP_STATS:Array = [-5,5,1]
+		public static const SWAMP:uint = 1;
+		private static const SWAMP_STATS:Array = [-5,5,1]
 
-		public static var FOREST:uint = 2;
-		private static var FOREST_STATS:Array = [5,10,1]
+		public static const FOREST:uint = 2;
+		private static const FOREST_STATS:Array = [5,10,1]
 		
-		public static var terrainTypes:Array = new Array(PLAINS_STATS,SWAMP_STATS,FOREST_STATS);
+		public static const terrainTypes:Array = new Array(PLAINS_STATS,SWAMP_STATS,FOREST_STATS);
 		
-		public static var FRAME_OFFSET = 2; //offset to add to terrain type to get the correct frame # in the hex mclip
+		public static const FRAME_OFFSET = 2; //offset to add to terrain type to get the correct frame # in the hex mclip
 		
-		public static var COMMUNITY_STATS:Array = ["Upgrade Cost", "Max Population", "Production Rate", "Recruitment Rate", "Defense Value"]
-		public static var UPGRADE_COST = 0;
-		public static var MAX_POPULATION = 1;
-		public static var PROD_RATE = 2;
-		public static var RECRUIT_RATE = 3;
-		public static var DEF_VALUE = 4;
+		public static const COMMUNITY_STATS:Array = ["Upgrade Cost", "Max Population", "Production Rate", "Recruitment Rate", "Defense Value"]
+		public static const UPGRADE_COST = 0;
+		public static const MAX_POPULATION = 1;
+		public static const PROD_RATE = 2;
+		public static const RECRUIT_RATE = 3;
+		public static const DEF_VALUE = 4;
 		
-		public static var VILLAGE:uint = 1;
-		private static var VILLAGE_STATS = [0,20,10,5,10]
+		public static const VILLAGE:uint = 1;
+		private static const VILLAGE_STATS = [0,20,10,5,10]
 										   
-		public static var TOWN:uint = 2;
-		private static var TOWN_STATS:Array = [20,50,20,10,20]
+		public static const TOWN:uint = 2;
+		private static const TOWN_STATS:Array = [20,50,20,10,20]
 		
-		public static var CITY:uint = 3;
-		private static var CITY_STATS = [40,80,30,15,30]
+		public static const CITY:uint = 3;
+		private static const CITY_STATS = [40,80,30,15,30]
 		
-		public static var communityTypes = new Array([VILLAGE_STATS, TOWN_STATS, CITY_STATS]);
+		public static const communityTypes = new Array(VILLAGE_STATS, TOWN_STATS, CITY_STATS);
 		
-		public static var HUMAN:uint = 0;
+		public static const HUMAN:uint = 0;
 		public var playersTurn:uint = HUMAN;
 		public var players:Array = new Array();
+		public var theTurn:AFTurn = null;
+		public var currentPhase:String;
+		
+		public var combat:AFCombat = null;
+		
 		public var hMenu:HorizontalGameMenu;
 		
 		public var selectedHex:Hex = null;
@@ -107,7 +112,7 @@
 		}//end startGame
 		public function initializePlayers():void {
 			players.push(new Player(0));
-			players.push(new AIPlayer(0));
+			players.push(new AIPlayer(1));
 			
 			var randRow:uint = Math.floor(Math.random()*(BOARD_ROWS));
 			var randCol:uint = Math.floor(Math.random()*BOARD_COLUMNS);
@@ -117,19 +122,33 @@
 			randCol = Math.floor(Math.random()*BOARD_COLUMNS);
 			var h1:Hex = hexList[randCol][randRow];
 			
-			//h.foundCommunity(TOWN, 25, 30); 
+			h0.foundCommunity(new GamePiece(h0, 100, 100, GamePiece.ARMY_UNIT, players[HUMAN])); 
+			h1.foundCommunity(new GamePiece(h1, 100, 100, GamePiece.ARMY_UNIT, players[1]));
 			
-			new GamePiece(h0, 5, 5, GamePiece.ARMY_UNIT,players[HUMAN]);
-			new GamePiece(h1, 20, 20, GamePiece.ARMY_UNIT,players[1]);
+			new GamePiece(h0, 30, 30, GamePiece.ARMY_UNIT,players[HUMAN]);
+			new GamePiece(h1, 30, 30, GamePiece.ARMY_UNIT,players[1]);
+			
+			while (true) 
+			theTurn = new AFTurn(players[playersTurn],this);
+			
 
 		}//end initializePlayers
+		public function nextTurn() {
+			if (players[++playersTurn] == null)//increment playersTurn, and if it's the last player
+				playersTurn = 0;//then go back to the first player
+		}//end nextTurn
+		
 		public function boardClick(h:Hex) {
-			if (selectedPiece != null) {
-				selectedPiece.moveToHex(h);
-				selectedPiece.unSelect();
-				selectedPiece = null;
+			if (playersTurn == HUMAN) {
+				if (selectedPiece != null && selectedPiece.myPlayer.playerNum == playersTurn) {
+					selectedPiece.moveToHex(h);
+					selectedPiece.unSelect();
+					selectedPiece = null;
+					nextTurn();
+					theTurn = new AFTurn(players[playersTurn],this);
+				}
+				selectedHex = h;
 			}
-			selectedHex = h;
 			updateMenus(h);
 		}//end boardClick
 			
@@ -137,6 +156,16 @@
 			hMenu.newHex(h);
 			//vMenu.newHex(h);
 		}//end updateMenus
+		
+		public function destroyPiece(gp:GamePiece) {
+			gp.moveToHex(null);//move the piece off the board
+			gp.myPlayer.armies.splice(gp.myPlayer.armies.indexOf(gp),1);//remove the piece from the players inventory
+		}//end destroyPiece
+		
+		public function destroyCommunity(c:Community) {
+			c.myHex.myPlayer.communities.splice(c.myHex.myPlayer.communities.indexOf(c),1);
+			c.myHex.removeChild(c);
+		}//end destroyCommunity
 	}//end class
 	
 	

@@ -4,28 +4,28 @@
 	public class Community extends MovieClip{
 		
 		
-		private static var UPGRADE_COST = 0;
-		private static var MAX_POPULATION = 1;
-		private static var PROD_RATE = 2;
-		private static var RECRUIT_RATE = 3;
-		private static var DEF_VALUE = 4;
+		public static const UPGRADE_COST = 0;
+		public static const MAX_POPULATION = 1;
+		public static const PROD_RATE = 2;
+		public static const RECRUIT_RATE = 3;
+		public static const DEF_VALUE = 4;
 		
-		private static var VILLAGE:uint = 1;
-		private static var VILLAGE_STATS = [0,20,10,5,10];
+		public static const VILLAGE:uint = 0;
+		public static const VILLAGE_STATS = [10,20,10,5,10];
 										   
-		private static var TOWN:uint = 2;
-		private static var TOWN_STATS:Array = [20,50,20,10,20];
+		public static const TOWN:uint = 1;
+		public static const TOWN_STATS:Array = [20,50,20,10,20];
 		
-		public static var CITY:uint = 3;
-		private static var CITY_STATS = [40,80,30,15,30];
+		public static const CITY:uint = 2;
+		public static const CITY_STATS = [40,80,30,15,30];
 		
-		public static var communityTypes = new Array([VILLAGE_STATS, TOWN_STATS, CITY_STATS]);
-		private static var COMMUNITY_STATS:Array = ["Upgrade Cost", "Max Population", "Production Rate", "Recruitment Rate", "Defense Value"];
+		public static const communityTypes = new Array(VILLAGE_STATS, TOWN_STATS, CITY_STATS);
+		public static const COMMUNITY_STATS:Array = ["Upgrade Cost", "Max Population", "Production Rate", "Recruitment Rate", "Defense Value"];
 		
 		public var myTask:String;
-		private var myType:uint;
-		private var myPop:uint;
-		private var myResources:uint;
+		public var myType:uint;
+		public var myPop:uint;
+		public var myResources:uint;
 		public var myHex:Hex;
 		
 		
@@ -35,17 +35,20 @@
 		public function Community(pop:uint, rus:uint, h:Hex):void
 		{			
 			myHex = h;
+			trace("p: " + pop + "\tr: " + rus);
 			
 			for(var i:int = communityTypes.length - 1;i >= 0;--i)
 			{
-				if(rus >= communityTypes[i][UPGRADE_COST])
+				trace(communityTypes[i][UPGRADE_COST]);
+				if(rus >= communityTypes[i][UPGRADE_COST] && pop >= communityTypes[i][UPGRADE_COST])
 				{
 					myType = i;
 					myPop = pop;
-					myResources = rus - communityTypes[i][UPGRADE_COST];
+					myResources = rus  - communityTypes[i][UPGRADE_COST];
 					i = -1;
 					myHex.myPlayer.addCommunity(this); 
-					this.gotoAndStop(myType);
+					this.gotoAndStop(myType+1);
+					trace("I am type: " +myType);
 				}
 			}
 		}
@@ -55,6 +58,18 @@
 			myType = cType;
 			myPop = pop;
 			myResources = rus;
+		}
+		
+		public function setPop(p:uint) {
+			myPop = p;
+		}
+		
+		public function alterPop(n:uint) {
+			myPop += n;
+		}
+		
+		public function getPop():uint {
+			return myPop;
 		}
 		
 		public function upgrade():void

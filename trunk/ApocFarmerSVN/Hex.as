@@ -16,7 +16,7 @@
 		public var myDefBonus:Number;
 		public var myMoveValue:Number;
 		public var myGame:ApocFarmer;
-		private var myCommunity:Community = null;
+		public var myCommunity:Community = null;
 		public var N:Hex = null;
 		public var NE:Hex = null;
 		public var SE:Hex = null;
@@ -46,10 +46,11 @@
 			gotoAndStop(myTerrainType + ApocFarmer.FRAME_OFFSET);
 		}//end setTerrain
 		public function foundCommunity(piece:GamePiece){
-			if(piece.resources > 10 && piece.population > 10) {
+			if( (piece.resources >= Community.communityTypes[Community.VILLAGE][Community.UPGRADE_COST]) && (piece.population >= Community.communityTypes[Community.VILLAGE][Community.UPGRADE_COST]) ) {
 				myCommunity = new Community(piece.population,piece.resources,this);
 				myPlayer = piece.myPlayer;
 				addChild(myCommunity);
+				myGame.destroyPiece(piece);
 			}
 			else {
 				trace("not enough resources to found community");
@@ -57,9 +58,12 @@
 			}
 		}
 		public function addPiece(gp:GamePiece) {
+			
 			myPieces.push(gp);
 			trace("Adding child on hex:"+row+","+column);
 			addChild(gp);
+			myPlayer = gp.myPlayer;
+			
 		}
 		public function selectPiece():GamePiece {
 			return myPieces[0];
@@ -139,35 +143,38 @@
 				}//end if-else upper edge
 			else if (this.row == allHexes[column].length-1) { //if bottom edge
 					if (this.isUpperHex() ) {
-						borderingHexes.push(allHexes[column-1][row]);
+						borderingHexes.push(SW = allHexes[column-1][row]);
 						borderingHexes.push(N = allHexes[column][row-1]);
-						borderingHexes.push(allHexes[column+1][row]);
-						borderingHexes.push(allHexes[column-1][row-1]);
+						borderingHexes.push(SE = allHexes[column+1][row]);
+						borderingHexes.push(NW = allHexes[column-1][row-1]);
+						borderingHexes.push(NE = allHexes[column+1][row-1]);
 					}
 					else {
-						borderingHexes.push(allHexes[column-1][row]);
+						borderingHexes.push(NW = allHexes[column-1][row]);
 						borderingHexes.push(N = allHexes[column][row-1]);
-						borderingHexes.push(allHexes[column+1][row]);
+						borderingHexes.push(NE = allHexes[column+1][row]);
 					}
 				}//end if bottom edge
 			else if (this.column == 0) { //if left edge
-					borderingHexes.push(allHexes[column][row-1]);
-					borderingHexes.push(allHexes[column+1][row]);
-					borderingHexes.push(allHexes[column+1][row+1]);
-					borderingHexes.push(allHexes[column][row+1]);
+					borderingHexes.push(N = allHexes[column][row-1]);
+					borderingHexes.push(NE = allHexes[column+1][row]);
+					borderingHexes.push(SE = allHexes[column+1][row+1]);
+					borderingHexes.push(S = allHexes[column][row+1]);
 				}//end if left edge
 			else { //there are six possible neighbors for internal hexes
-				borderingHexes.push(allHexes[column+1][row]);
-				borderingHexes.push(allHexes[column-1][row]);
-				borderingHexes.push(allHexes[column][row+1]);
-				borderingHexes.push(allHexes[column][row-1]);
+				borderingHexes.push(S = allHexes[column][row+1]);
+				borderingHexes.push(N = allHexes[column][row-1]);
 				if (isUpperHex()) {
-					borderingHexes.push(allHexes[column-1][row-1]);
-					borderingHexes.push(allHexes[column+1][row-1]);
+					borderingHexes.push(NW = allHexes[column-1][row-1]);
+					borderingHexes.push(NE = allHexes[column+1][row-1]);
+					borderingHexes.push(SE = allHexes[column+1][row]);
+					borderingHexes.push(SW = allHexes[column-1][row]);
 				} 
 				else {
-					borderingHexes.push(allHexes[column-1][row+1]);
-					borderingHexes.push(allHexes[column+1][row+1]);
+					borderingHexes.push(SW = allHexes[column-1][row+1]);
+					borderingHexes.push(SE = allHexes[column+1][row+1]);
+					borderingHexes.push(NE = allHexes[column+1][row]);
+					borderingHexes.push(NW = allHexes[column-1][row]);
 				}//end if - else upper internal hex
 			}//end else intenrnal hex
 		}//end setNeighbors(Array)

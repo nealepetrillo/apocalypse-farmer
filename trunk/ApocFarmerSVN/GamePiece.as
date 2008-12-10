@@ -22,6 +22,7 @@
 			myPlayer.addPiece(this);
 			resources = res;
 			population = pop;
+			trace("rus: " + resources + "\tpop: " + population);
 			type = whatIAm;
 			movesPerTurn = DEFAULT_MOVEMENT_VALUE;
 			x = (ApocFarmer.HEX_WIDTH-this.width+5)/2;
@@ -43,11 +44,12 @@
 			if(myPlayer.GPFRAME == 2)
 				myDisplayInfo.gotoAndStop(3);
 		}
-		public function alterPop(pop:uint) {
+		public function alterPop(pop:int) {
 			population += pop;
+			myDisplayInfo = new PieceInfo(this);
 		}//end alterStrength
 		
-		public function alterResources(res:uint) {
+		public function alterResources(res:int) {
 			resources += res; 
 		}//end alterResources
 		
@@ -56,13 +58,26 @@
 		}//end gamePieceClicked
 		
 		public function moveToHex(newHex:Hex):Boolean{
-			if ( /*(movesLeft > 0) &&*/ myHex.isNeighboring(newHex) ) {
-				myHex.myPieces.splice(myHex.myPieces.indexOf(this,1));
-				myHex = newHex;
-				newHex.addPiece(this);
-				//movesLeft--;
+			if (newHex == null) {
+				myHex.myPieces.splice(myHex.myPieces.indexOf(this),1);
+				myHex.removeChild(this);
+				if(myHex.myPieces.length == 0)
+					myHex.myPlayer = null;
 				return true;
-			}//end if
+			} else if ( /*(movesLeft > 0) &&*/ myHex.isNeighboring(newHex) ) {
+				if (newHex.myPlayer != null && myPlayer != newHex.myPlayer) {
+					trace("Combat should begin...");
+					myHex.myGame.theTurn.startCombat(new CombatEvent(CombatEvent.COMBAT_START, this, newHex.myPieces, newHex));
+				}else {
+					myHex.myPieces.splice(myHex.myPieces.indexOf(this),1);
+					if(myHex.myPieces.length == 0)
+						myHex.myPlayer = null;
+					myHex = newHex;
+					newHex.addPiece(this);
+					//movesLeft--;
+					return true;
+				}//end if else
+			}//end if else if
 			return false;
 		}//end moveTo
 		public function displayInfo(x0:uint, y0:uint):PieceInfo {
