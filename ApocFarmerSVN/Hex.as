@@ -17,6 +17,12 @@
 		public var myMoveValue:Number;
 		public var myGame:ApocFarmer;
 		private var myCommunity:Community = null;
+		public var N:Hex = null;
+		public var NE:Hex = null;
+		public var SE:Hex = null;
+		public var S:Hex = null;
+		public var SW:Hex = null;
+		public var NW:Hex = null;
 		
 		public function Hex(game:ApocFarmer):void {
 			myGame = game;
@@ -52,6 +58,7 @@
 		}
 		public function addPiece(gp:GamePiece) {
 			myPieces.push(gp);
+			trace("Adding child on hex:"+row+","+column);
 			addChild(gp);
 		}
 		public function selectPiece():GamePiece {

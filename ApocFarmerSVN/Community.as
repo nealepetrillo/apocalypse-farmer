@@ -26,7 +26,7 @@
 		private var myType:uint;
 		private var myPop:uint;
 		private var myResources:uint;
-		private var myHex:Hex;
+		public var myHex:Hex;
 		
 		
 		public var locked:uint;
@@ -101,6 +101,16 @@
 				trace("error in communities class: unable to add resources!! P.S. Congradulations You've Won THE GAME!!"); 
 			}
 		}
+		
+		/*For AI Only*/
+		public function canReinforce():Boolean {
+			if((myResources > 10) && (myPop > 10)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} //end canReinforce
 		
 		public function produce():void {
 			

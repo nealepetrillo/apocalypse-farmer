@@ -7,6 +7,7 @@
 		
 		public function AIPlayer(playerNum:uint):void {
 			super(playerNum);
+			GPFRAME = 2;
 		}
 		
 		public function movePiece(p:GamePiece, h:Hex):void {
@@ -15,7 +16,7 @@
 		
 		public function startTurn():void {
 			phaseOne();
-			pahseTwo();
+			phaseTwo();
 		}
 		
 		private function phaseOne():void {
@@ -40,7 +41,7 @@
 				armies[activeArmy].moveToHex(currentHex.NE);
 			}
 			else {
-				trace ("Problem moving piece for " + myPlayer.getPlayerNum() + 
+				trace ("Problem moving piece for " + getPlayerNum() + 
 												": all neighbors are NULL")
 			}//end if
 		}//end function
@@ -48,11 +49,26 @@
 		private function phaseTwo():void {
 			
 			//Found Community
-			if(armies[activeArmy].myHex.myCommunity != null)
-			{
-				if (
-				armies[activeArmy].
+			if(armies[activeArmy].myHex.myCommunity == null){
+				armies[activeArmy].createCommunity();
+			}//end if
 			
+			//Main Loop
+			for(var i:int = 0; i<communities.length; ++i) {
+				
+				if(communities[i].locked == 0) {
+					if((communities[i].myHex.myPieces.length != 0) 
+						&& communities[i].canReinforce()){
+						communities[i].reinforce(communities[i].myHex.myPieces[0], 10);
+					}
+					else if(communities[i].canCreateArmy(10)) {
+						communities[i].createArmy(10);
+					}
+					else{
+						communities[i].produce();
+					}//end if
+				}//end if
+			}//end for		
 		}//end function
 		
 

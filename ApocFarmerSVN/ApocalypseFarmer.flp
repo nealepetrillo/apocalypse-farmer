@@ -3,7 +3,6 @@
     <project_file path="./AIPlayer.as" filetype="as" />
     <project_file path="./ApocFarmer.as" filetype="as" />
     <project_file path="./CombatEvent.as" filetype="as" />
-    <project_file path="./GameMenu.as" filetype="as" />
     <project_file path="./GamePiece.as" filetype="as" />
     <project_file path="./Hex.as" filetype="as" />
     <project_file path="./HorizontalGameMenu.as" filetype="as" />

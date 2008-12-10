@@ -17,7 +17,6 @@
 		public static var DEFAULT_MOVEMENT_VALUE:uint = 1;
 		
 		public function GamePiece(whereIAm:Hex, pop:uint, res:uint, whatIAm:String, aPlayer:Player):void {
-			myDisplayInfo = new PieceInfo(this);
 			myHex = whereIAm;
 			myPlayer = aPlayer;
 			myPlayer.addPiece(this);
@@ -28,16 +27,21 @@
 			x = (ApocFarmer.HEX_WIDTH-this.width+5)/2;
 			y = (ApocFarmer.HEX_HEIGHT-this.height+5)/2;
 			myHex.addPiece(this);
-			stop();
+			gotoAndStop(myPlayer.GPFRAME);
+			myDisplayInfo = new PieceInfo(this);
 			//addEventListener(MouseEvent.CLICK,gamePieceClicked);
 		}//end GamePiece(Hex,uint,String)
 		
 		public function beenSelected() {
 			myHex.myGame.selectedPiece = this;
 			myDisplayInfo.gotoAndStop(2);
+			if(myPlayer.GPFRAME == 2)
+				myDisplayInfo.gotoAndStop(4);
 		}
 		public function unSelect() {
 			myDisplayInfo.gotoAndStop(1);
+			if(myPlayer.GPFRAME == 2)
+				myDisplayInfo.gotoAndStop(3);
 		}
 		public function alterPop(pop:uint) {
 			population += pop;
@@ -77,6 +81,10 @@
 		
 		public function getLocation():Hex {
 			return myHex;
+		}
+		
+		public function createCommunity():void {
+			myHex.foundCommunity(this);
 		}
 		
 		
