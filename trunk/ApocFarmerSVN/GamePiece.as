@@ -7,7 +7,7 @@
 		private var type:String;
 		public var resources:uint;
 		public var population:uint;
-		private var myHex:Hex;
+		public var myHex:Hex;
 		private var movesPerTurn:uint;
 		private var movesLeft:uint;
 		public var myDisplayInfo:PieceInfo;
@@ -18,6 +18,7 @@
 		
 		public function GamePiece(whereIAm:Hex, pop:uint, res:uint, whatIAm:String, aPlayer:Player):void {
 			myHex = whereIAm;
+			myHex.myPlayer = aPlayer;
 			myPlayer = aPlayer;
 			myPlayer.addPiece(this);
 			resources = res;
@@ -60,8 +61,9 @@
 		public function moveToHex(newHex:Hex):Boolean{
 			if (newHex == null) {
 				myHex.myPieces.splice(myHex.myPieces.indexOf(this),1);
-				myHex.removeChild(this);
-				if(myHex.myPieces.length == 0)
+				if (myHex.contains(this))
+					myHex.removeChild(this);
+				if(myHex.myPieces.length == 0 && myHex.myCommunity == null)
 					myHex.myPlayer = null;
 				return true;
 			} else if ( /*(movesLeft > 0) &&*/ myHex.isNeighboring(newHex) ) {
@@ -70,7 +72,7 @@
 					myHex.myGame.theTurn.startCombat(new CombatEvent(CombatEvent.COMBAT_START, this, newHex.myPieces, newHex));
 				}else {
 					myHex.myPieces.splice(myHex.myPieces.indexOf(this),1);
-					if(myHex.myPieces.length == 0)
+					if(myHex.myPieces.length == 0 && myHex.myCommunity == null)
 						myHex.myPlayer = null;
 					myHex = newHex;
 					newHex.addPiece(this);

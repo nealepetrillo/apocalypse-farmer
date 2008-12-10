@@ -47,8 +47,9 @@
 		}//end setTerrain
 		public function foundCommunity(piece:GamePiece){
 			if( (piece.resources >= Community.communityTypes[Community.VILLAGE][Community.UPGRADE_COST]) && (piece.population >= Community.communityTypes[Community.VILLAGE][Community.UPGRADE_COST]) ) {
-				myCommunity = new Community(piece.population,piece.resources,this);
 				myPlayer = piece.myPlayer;
+				myCommunity = new Community(piece.population,piece.resources,this);
+				
 				addChild(myCommunity);
 				myGame.destroyPiece(piece);
 			}
