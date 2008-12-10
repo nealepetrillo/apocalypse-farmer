@@ -2,9 +2,10 @@
 	
 	class Player {
 				
-		private var communities:Array = new Array(); //List of owned communities 
-		private var armies:Array = new Array(); //List of availiable armies
-		private var playerNum:uint; //Player Number
+		public var communities:Array = new Array(); //List of owned communities 
+		public var armies:Array = new Array(); //List of availiable armies
+		public var playerNum:uint; //Player Number
+		public var GPFRAME = 1;
 		
 		
 		public function Player(playerNumber:uint):void

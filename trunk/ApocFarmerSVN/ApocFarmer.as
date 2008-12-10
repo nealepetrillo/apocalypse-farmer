@@ -52,8 +52,7 @@
 		
 		public static var HUMAN:uint = 0;
 		public var playersTurn:uint = HUMAN;
-		public var pieces:Array = new Array();
-		public var aiPlayers:Array = new Array();
+		public var players:Array = new Array();
 		public var hMenu:HorizontalGameMenu;
 		
 		public var selectedHex:Hex = null;
@@ -107,18 +106,21 @@
 			
 		}//end startGame
 		public function initializePlayers():void {
-			pieces.push(new Array());
-			for (var i:uint = 1; i <= aiPlayers.length; i++)
-				pieces.push(new Array());
+			players.push(new Player(0));
+			players.push(new AIPlayer(0));
+			
 			var randRow:uint = Math.floor(Math.random()*(BOARD_ROWS));
 			var randCol:uint = Math.floor(Math.random()*BOARD_COLUMNS);
-			var h:Hex = hexList[randCol][randRow];
+			var h0:Hex = hexList[randCol][randRow];
+			
+			randRow = Math.floor(Math.random()*(BOARD_ROWS));
+			randCol = Math.floor(Math.random()*BOARD_COLUMNS);
+			var h1:Hex = hexList[randCol][randRow];
+			
 			//h.foundCommunity(TOWN, 25, 30); 
 			
-			new GamePiece(h, 5, 5, GamePiece.ARMY_UNIT,null);
-			new GamePiece(h, 20, 20, GamePiece.ARMY_UNIT,null);
-			for (i = 0; i < pieces.length; i++) {
-			}//end for initialize pieces
+			new GamePiece(h0, 5, 5, GamePiece.ARMY_UNIT,players[HUMAN]);
+			new GamePiece(h1, 20, 20, GamePiece.ARMY_UNIT,players[1]);
 
 		}//end initializePlayers
 		public function boardClick(h:Hex) {

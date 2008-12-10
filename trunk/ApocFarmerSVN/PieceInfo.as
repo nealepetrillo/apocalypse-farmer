@@ -7,6 +7,8 @@
 			myPiece = gp
 			addEventListener(MouseEvent.CLICK,pieceSelected);
 			buttonMode = true;
+			if(gp.myPlayer.GPFRAME == 2)
+				gotoAndStop(3);
 			stop();
 		}
 		public function pieceSelected(e:MouseEvent) {
