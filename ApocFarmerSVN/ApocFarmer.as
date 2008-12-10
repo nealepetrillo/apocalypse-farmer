@@ -116,19 +116,21 @@
 			
 			var randRow:uint = Math.floor(Math.random()*(BOARD_ROWS));
 			var randCol:uint = Math.floor(Math.random()*BOARD_COLUMNS);
+			trace(randRow + "," + randCol);
 			var h0:Hex = hexList[randCol][randRow];
 			
 			randRow = Math.floor(Math.random()*(BOARD_ROWS));
 			randCol = Math.floor(Math.random()*BOARD_COLUMNS);
+			trace(randRow + "," + randCol);
 			var h1:Hex = hexList[randCol][randRow];
 			
-			h0.foundCommunity(new GamePiece(h0, 100, 100, GamePiece.ARMY_UNIT, players[HUMAN])); 
+			h0.foundCommunity(new GamePiece(h0, 100, 100, GamePiece.ARMY_UNIT, players[0])); 
 			h1.foundCommunity(new GamePiece(h1, 100, 100, GamePiece.ARMY_UNIT, players[1]));
 			
-			new GamePiece(h0, 30, 30, GamePiece.ARMY_UNIT,players[HUMAN]);
+			new GamePiece(h0, 30, 30, GamePiece.ARMY_UNIT,players[0]);
 			new GamePiece(h1, 30, 30, GamePiece.ARMY_UNIT,players[1]);
 			
-			while (true) 
+			
 			theTurn = new AFTurn(players[playersTurn],this);
 			
 
@@ -136,6 +138,7 @@
 		public function nextTurn() {
 			if (players[++playersTurn] == null)//increment playersTurn, and if it's the last player
 				playersTurn = 0;//then go back to the first player
+			theTurn = new AFTurn(players[playersTurn],this);
 		}//end nextTurn
 		
 		public function boardClick(h:Hex) {

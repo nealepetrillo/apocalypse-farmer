@@ -18,7 +18,8 @@
 		public function newHex(h:Hex) {
 			if (h != currentHex) {
 				for (var i:uint = 0; i < piecesDisplayed.length; i++) {
-					removeChild(piecesDisplayed[i].myDisplayInfo);
+					if (this.contains(piecesDisplayed[i].myDisplayInfo))
+						removeChild(piecesDisplayed[i].myDisplayInfo);
 				}
 			}
 			currentHex = h;
