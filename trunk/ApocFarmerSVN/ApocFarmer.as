@@ -55,9 +55,7 @@
 		public var players:Array = new Array();
 		public var theTurn:AFTurn = null;
 		public var currentPhase:String;
-		
-		public var combat:AFCombat = null;
-		
+				
 		public var hMenu:HorizontalGameMenu;
 		
 		public var selectedHex:Hex = null;
@@ -167,7 +165,8 @@
 		
 		public function destroyCommunity(c:Community) {
 			c.myHex.myPlayer.communities.splice(c.myHex.myPlayer.communities.indexOf(c),1);
-			c.myHex.removeChild(c);
+			if (c.myHex.contains(c))
+				c.myHex.removeChild(c);
 		}//end destroyCommunity
 	}//end class
 	

@@ -119,7 +119,7 @@
 		
 		/*For AI Only*/
 		public function canReinforce():Boolean {
-			if((myResources > 10) && (myPop > 10)) {
+			if((myResources > 10) && (myPop > 10) && (myHex.myPieces.length > 0)) {
 				return true;
 			}
 			else {
@@ -159,7 +159,8 @@
 		}
 		public function canCreateArmy(n:uint):Boolean {
 			
-			n = n+10;
+			if (n < 10)
+				return false;
 			if(myResources >= n && myPop >= n) {
 				return true; 
 			}
