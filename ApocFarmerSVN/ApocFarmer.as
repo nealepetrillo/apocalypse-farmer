@@ -143,9 +143,11 @@
 			if (playersTurn == HUMAN) {
 				if (selectedPiece != null && selectedPiece.myPlayer.playerNum == playersTurn) {
 					selectedPiece.moveToHex(h);
-					selectedPiece.unSelect();
+					if (selectedPiece != null)//if it wasn't destroyed
+						selectedPiece.unSelect();//unselect it
 					selectedPiece = null;
 					nextTurn();
+					updateMenus(h);
 					theTurn = new AFTurn(players[playersTurn],this);
 				}
 				selectedHex = h;
@@ -159,8 +161,16 @@
 		}//end updateMenus
 		
 		public function destroyPiece(gp:GamePiece) {
+			trace("Destroying " + gp.toString());
 			gp.moveToHex(null);//move the piece off the board
 			gp.myPlayer.armies.splice(gp.myPlayer.armies.indexOf(gp),1);//remove the piece from the players inventory
+			if (selectedPiece == gp) {
+				selectedPiece = null;
+				gp.unSelect();
+			}//end unselected the piece if necessary
+			updateMenus(gp.myHex);
+			if (hMenu.contains(gp.myDisplayInfo))
+				hMenu.removeChild(gp.myDisplayInfo);
 		}//end destroyPiece
 		
 		public function destroyCommunity(c:Community) {

@@ -23,7 +23,7 @@
 			myPlayer.addPiece(this);
 			resources = res;
 			population = pop;
-			trace("rus: " + resources + "\tpop: " + population);
+			//trace("rus: " + resources + "\tpop: " + population);
 			type = whatIAm;
 			movesPerTurn = DEFAULT_MOVEMENT_VALUE;
 			x = (ApocFarmer.HEX_WIDTH-this.width+5)/2;
@@ -34,6 +34,10 @@
 			//addEventListener(MouseEvent.CLICK,gamePieceClicked);
 		}//end GamePiece(Hex,uint,String)
 		
+		public override function toString():String {
+			return "GamePiece on " + myHex.getRow() + "," + myHex.getColumn();
+		}
+								
 		public function beenSelected() {
 			myHex.myGame.selectedPiece = this;
 			myDisplayInfo.gotoAndStop(2);

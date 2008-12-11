@@ -16,12 +16,9 @@
 			stop();
 		}//end GameMenu(Boolean,Boolean)
 		public function newHex(h:Hex) {
-			if (h != currentHex) {
-				for (var i:uint = 0; i < piecesDisplayed.length; i++) {
-					if (this.contains(piecesDisplayed[i].myDisplayInfo))
-						removeChild(piecesDisplayed[i].myDisplayInfo);
-				}
-			}
+			for (var i:uint = 0; i < piecesDisplayed.length; i++)
+				if (this.contains(piecesDisplayed[i].myDisplayInfo))
+					removeChild(piecesDisplayed[i].myDisplayInfo);
 			currentHex = h;
 			piecesDisplayed = currentHex.getPieces();
 			drawMenu();
