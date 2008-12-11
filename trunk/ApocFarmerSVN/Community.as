@@ -35,7 +35,7 @@
 		public function Community(pop:uint, rus:uint, h:Hex):void
 		{			
 			myHex = h;
-			trace("p: " + pop + "\tr: " + rus);
+			//trace("p: " + pop + "\tr: " + rus);
 			
 			for(var i:int = communityTypes.length - 1;i >= 0;--i)
 			{
@@ -48,7 +48,7 @@
 					i = -1;
 					myHex.myPlayer.addCommunity(this); 
 					this.gotoAndStop(myType+1);
-					trace("I am type: " +myType);
+					//trace("I am type: " +myType);
 				}
 			}
 		}
