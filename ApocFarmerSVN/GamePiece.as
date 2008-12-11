@@ -70,7 +70,7 @@
 				if(myHex.myPieces.length == 0 && myHex.myCommunity == null)
 					myHex.myPlayer = null;
 				return true;
-			} else if ( /*(movesLeft > 0) &&*/ myHex.isNeighboring(newHex) ) {
+			} else if ( myHex.myGame.currentPhase == AFTurn.MOVEMENT_PHASE && myHex.isNeighboring(newHex) ) {
 				if (newHex.myPlayer != null && myPlayer != newHex.myPlayer) {
 					trace("Combat should begin...");
 					myHex.myGame.theTurn.startCombat(new CombatEvent(CombatEvent.COMBAT_START, this, newHex.myPieces, newHex));

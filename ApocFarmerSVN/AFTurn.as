@@ -23,13 +23,28 @@
 				//trace("Worked? " + willTrigger(CombatEvent.COMBAT_START));
 			}//end else			
 		}//end AFTurn
-		public function startPhaseTwo(e:PhaseEvent) {
-			
+		public function startPhaseTwo() {
+			game.currentPhase = MANAGE_PHASE;
+		}//end startPhaseTwo
+		public function endPhaseTwo() {
 			for (var i:uint = 0; i < player.communities.length; i++) {
-				if(--communities[i].locked < 0)
-					communities[i].locked = 0;
+				var c:Community = player.communities[i];
+				c.locked --;
+				if(c.locked <= 0) {
+					c.locked = 0;
+					if(c.myTask == Community.TASK_PRODUCE)
+						c.produce();
+					if(c.myTask == Community.TASK_UPGRADE)
+						c.upgrade();
+					if(c.myTask == Community.TASK_CREATE)
+						c.createArmy(10);
+					if(c.myTask == Community.TASK_REINFORCE)
+						c.reinforce(c.myHex.myPieces[0],10);
+					c.locked = 0;
+				}//end if
 			}//end for
-		}
+			game.nextTurn();
+		}//end endPhaseTwo
 		public function startCombat(e:CombatEvent) {
 			trace("Combat starting...");
 			var attackStrength:Number = e.attacker.population * (1 + Math.random());

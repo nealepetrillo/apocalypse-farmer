@@ -12,4 +12,5 @@
     <project_file path="./PieceInfo.as" filetype="as" />
     <project_file path="./Player.as" filetype="as" />
     <project_file path="./ApocFarmer.swf" filetype="swf" />
+    <project_file path="./VerticalGameMenu.as" filetype="as" />
 </flash_project>
