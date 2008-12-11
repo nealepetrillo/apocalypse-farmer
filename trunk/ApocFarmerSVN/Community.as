@@ -143,8 +143,6 @@
 		
 		public function createArmy(n:uint):void {
 			
-			n = n +10; 
-			
 			if(canCreateArmy(n)) {
 				myTask = "Creating an army";
 				locked = 2;

@@ -17,6 +17,7 @@
 		public function startTurn():void {
 			phaseOne();
 			phaseTwo();
+			
 			for (var i:uint = 0; i < communities.length; i++) {
 				if(--communities[i].locked < 0)
 					communities[i].locked = 0;
@@ -29,31 +30,34 @@
 				
 				var currentHex:Hex = armies[activeArmy].getLocation();
 				
-				//Move primary Army counterclockwise 
-				if(currentHex.NW != null) {
-					armies[activeArmy].moveToHex(currentHex.NW);
-				}
-				else if(currentHex.SW != null) {
-					armies[activeArmy].moveToHex(currentHex.SW);
-				}
-				else if(currentHex.S != null) {
-					armies[activeArmy].moveToHex(currentHex.S);
-				}
-				else if(currentHex.SE != null) {
-					armies[activeArmy].moveToHex(currentHex.SE);
-				}
-				else if(currentHex.NE != null) {
-					armies[activeArmy].moveToHex(currentHex.NE);
-				}
-				else {
-					trace ("Problem moving piece for " + getPlayerNum() + 
-													": all neighbors are NULL")
+				if((armies[activeArmy].resources > 10) && (armies[activeArmy].population >10)){
+					//Move primary Army counterclockwise 
+					if(currentHex.NW != null) {
+						armies[activeArmy].moveToHex(currentHex.NW);
+					}
+					else if(currentHex.SW != null) {
+						armies[activeArmy].moveToHex(currentHex.SW);
+					}
+					else if(currentHex.S != null) {
+						armies[activeArmy].moveToHex(currentHex.S);
+					}
+					else if(currentHex.SE != null) {
+						armies[activeArmy].moveToHex(currentHex.SE);
+					}
+					else if(currentHex.NE != null) {
+						armies[activeArmy].moveToHex(currentHex.NE);
+					}
+					else {
+						trace ("Problem moving piece for " + getPlayerNum() + 
+														": all neighbors are NULL")
+					}//end if
 				}//end if
 			}//end if
 		}//end function
 		
 		private function phaseTwo():void {
 			activeArmy = armies.length-1;
+			
 			//Found Community
 			if (armies.length > 0) {
 				if(armies[activeArmy].myHex.myCommunity == null){

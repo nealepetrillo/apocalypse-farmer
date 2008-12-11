@@ -24,6 +24,11 @@
 			}//end else			
 		}//end AFTurn
 		public function startPhaseTwo(e:PhaseEvent) {
+			
+			for (var i:uint = 0; i < player.communities.length; i++) {
+				if(--communities[i].locked < 0)
+					communities[i].locked = 0;
+			}//end for
 		}
 		public function startCombat(e:CombatEvent) {
 			trace("Combat starting...");
