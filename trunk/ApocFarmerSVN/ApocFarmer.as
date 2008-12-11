@@ -57,6 +57,7 @@
 		public var currentPhase:String;
 				
 		public var hMenu:HorizontalGameMenu;
+		public var vMenu:VerticalGameMenu;
 		
 		public var selectedHex:Hex = null;
 		public var selectedPiece:GamePiece = null;
@@ -105,6 +106,7 @@
 			event.target.removeEventListener(MouseEvent.CLICK,startGame);
 			drawBoard();
 			hMenu = new HorizontalGameMenu(this);
+			vMenu = new VerticalGameMenu(this);
 			initializePlayers();
 			
 		}//end startGame
@@ -134,6 +136,7 @@
 
 		}//end initializePlayers
 		public function nextTurn() {
+			updateMenus(selectedHex);
 			if (players[++playersTurn] == null)//increment playersTurn, and if it's the last player
 				playersTurn = 0;//then go back to the first player
 			theTurn = new AFTurn(players[playersTurn],this);
@@ -146,9 +149,9 @@
 					if (selectedPiece != null)//if it wasn't destroyed
 						selectedPiece.unSelect();//unselect it
 					selectedPiece = null;
-					nextTurn();
 					updateMenus(h);
-					theTurn = new AFTurn(players[playersTurn],this);
+					theTurn.startPhaseTwo();
+					//theTurn = new AFTurn(players[playersTurn],this);
 				}
 				selectedHex = h;
 			}
@@ -157,7 +160,7 @@
 			
 		public function updateMenus(h:Hex) {
 			hMenu.newHex(h);
-			//vMenu.newHex(h);
+			vMenu.newHex(h);
 		}//end updateMenus
 		
 		public function destroyPiece(gp:GamePiece) {

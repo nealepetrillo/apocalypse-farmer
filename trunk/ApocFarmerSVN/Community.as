@@ -21,6 +21,7 @@
 		
 		public static const communityTypes = new Array(VILLAGE_STATS, TOWN_STATS, CITY_STATS);
 		public static const COMMUNITY_STATS:Array = ["Upgrade Cost", "Max Population", "Production Rate", "Recruitment Rate", "Defense Value"];
+		public static const COMMUNITY_TYPE:Array = ["Village", "Town", "City"];
 		
 		public var myTask:String;
 		public var myType:uint;
@@ -28,8 +29,12 @@
 		public var myResources:uint;
 		public var myHex:Hex;
 		
+		public static const TASK_UPGRADE:String = "This community is upgrading itself.";
+		public static const TASK_REINFORCE:String = "This community is reinforcing an army.";
+		public static const TASK_CREATE:String = "This community is forming an army.";
+		public static const TASK_PRODUCE:String = "This community is producing.";
 		
-		public var locked:uint;
+		public var locked:int;
 		
 		
 		public function Community(pop:uint, rus:uint, h:Hex):void
@@ -80,7 +85,7 @@
 				{
 					if(myResources >= communityTypes[myType][UPGRADE_COST])
 					{
-						myTask = "Upgrading";
+						myTask = TASK_UPGRADE;
 						locked = 3;
 						myResources = myResources - communityTypes[myType][UPGRADE_COST];
 						myType = myType + 1;
@@ -92,7 +97,7 @@
 		
 		public function canUpgrade():Boolean
 		{
-			if(myResources >= communityTypes[myType][UPGRADE_COST])
+			if(myResources >= communityTypes[myType][UPGRADE_COST] && locked == 0)
 			{
 				return true; 
 			}
@@ -105,7 +110,7 @@
 		public function reinforce(piece:GamePiece, n:uint):void {
 			if ((myResources > n) && (myPop > n) && (n >0) ) {
 				
-				myTask = "Reinforcing";
+				myTask = TASK_REINFORCE;
 				myResources = myResources - n; 
 				myPop = myPop - n;
 				locked = 1;
@@ -119,7 +124,7 @@
 		
 		/*For AI Only*/
 		public function canReinforce():Boolean {
-			if((myResources > 10) && (myPop > 10) && (myHex.myPieces.length > 0)) {
+			if((myResources > 10) && (myPop > 10) && (myHex.myPieces.length > 0) && locked == 0) {
 				return true;
 			}
 			else {
@@ -129,7 +134,7 @@
 		
 		public function produce():void {
 			
-			myTask = "Producing";
+			myTask = TASK_PRODUCE;
 			locked = 1;
 			myResources = myResources + communityTypes[myType][PROD_RATE] + 
 							ApocFarmer.terrainTypes[myHex.myTerrainType][ApocFarmer.PROD_BONUS];
@@ -144,7 +149,7 @@
 		public function createArmy(n:uint):void {
 			
 			if(canCreateArmy(n)) {
-				myTask = "Creating an army";
+				myTask = TASK_CREATE;
 				locked = 2;
 				myResources = myResources - n;
 				myPop = myPop - n;
@@ -159,7 +164,7 @@
 			
 			if (n < 10)
 				return false;
-			if(myResources >= n && myPop >= n) {
+			if(myResources >= n && myPop >= n && locked == 0) {
 				return true; 
 			}
 			else {
