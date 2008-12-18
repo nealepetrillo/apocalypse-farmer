@@ -28,6 +28,7 @@
 		public var myPop:uint;
 		public var myResources:uint;
 		public var myHex:Hex;
+		public var isHome:Boolean;
 		
 		public static const TASK_UPGRADE:String = "This community is upgrading itself.";
 		public static const TASK_REINFORCE:String = "This community is reinforcing an army.";
@@ -35,10 +36,12 @@
 		public static const TASK_PRODUCE:String = "This community is producing.";
 		
 		public var locked:int;
+	
 		
 		
-		public function Community(pop:uint, rus:uint, h:Hex):void
+		public function Community(pop:uint, rus:uint, h:Hex, home:Boolean):void
 		{			
+			isHome = home;
 			myHex = h;
 			//trace("p: " + pop + "\tr: " + rus);
 			

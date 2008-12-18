@@ -14,7 +14,7 @@
 		private var upgradeB:GUIUpgradeButton;
 		private var endTurn:GUIEndTurn;
 		public function VerticalGameMenu(game:ApocFarmer) {
-			x = ApocFarmer.BOARD_COLUMNS * ApocFarmer.WIDTH_OFFSET + ApocFarmer.HEX_WIDTH - ApocFarmer.WIDTH_OFFSET
+			x = ApocFarmer.BOARD_COLUMNS * ApocFarmer.WIDTH_OFFSET + ApocFarmer.HEX_WIDTH - ApocFarmer.WIDTH_OFFSET;
 			y = 0;
 			myGame = game;
 			myGame.addChild(this);
@@ -43,7 +43,7 @@
 					communityStats.appendText("It is locked for the next " + currentCommunity.locked + " turn(s).\n");
 				}//end if
 				addChild(communityStats);
-				if (currentCommunity.myHex.myPlayer == myGame.players[myGame.playersTurn] && myGame.currentPhase == AFTurn.MANAGE_PHASE) {
+				if (currentCommunity.myHex.myPlayer.playerNum == 0 && myGame.currentPhase == AFTurn.MANAGE_PHASE) {
 					
 					if (currentCommunity.canUpgrade()) {
 						if(!upgradeB) {
@@ -108,9 +108,21 @@
 				}//end if
 				
 			} else {
-				if (this.contains(communityStats)) {
-					removeChild(communityStats)
-				}//end if 
+				if (communityStats)
+					if (this.contains(communityStats))
+						removeChild(communityStats);
+				if (upgradeB)
+					if(contains(upgradeB))
+						removeChild(upgradeB);
+				if (createB)
+					if(contains(createB))
+						removeChild(createB);
+				if (reinforceB)
+					if(contains(reinforceB))
+						removeChild(reinforceB);
+				if (produceB)
+					if(contains(produceB))
+						removeChild(produceB);
 			}//end if else
 			if (myGame.playersTurn == ApocFarmer.HUMAN && myGame.currentPhase == AFTurn.MANAGE_PHASE) {
 				if(!endTurn) {
