@@ -45,10 +45,10 @@
 			myMoveValue = ApocFarmer.terrainTypes[myTerrainType][ApocFarmer.MOV_VALUE];
 			gotoAndStop(myTerrainType + ApocFarmer.FRAME_OFFSET);
 		}//end setTerrain
-		public function foundCommunity(piece:GamePiece){
+		public function foundCommunity(piece:GamePiece,home:Boolean){
 			if( (piece.resources >= Community.communityTypes[Community.VILLAGE][Community.UPGRADE_COST]) && (piece.population >= Community.communityTypes[Community.VILLAGE][Community.UPGRADE_COST]) ) {
 				myPlayer = piece.myPlayer;
-				myCommunity = new Community(piece.population,piece.resources,this);
+				myCommunity = new Community(piece.population,piece.resources,this,home);
 				
 				addChild(myCommunity);
 				myGame.destroyPiece(piece);

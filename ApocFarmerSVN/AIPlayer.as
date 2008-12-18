@@ -26,11 +26,12 @@
 		
 		private function phaseOne():void {
 			if (armies.length > 0) {
-				activeArmy = armies.length - 1;
+				trace("can has armies??");
+				activeArmy = 0;//armies.length - 1;
 				
 				var currentHex:Hex = armies[activeArmy].getLocation();
 				
-				if((armies[activeArmy].resources > 10) && (armies[activeArmy].population >10)){
+				//if((armies[activeArmy].resources > 10) && (armies[activeArmy].population >10)){
 					//Move primary Army counterclockwise 
 					if(currentHex.NW != null) {
 						armies[activeArmy].moveToHex(currentHex.NW);
@@ -50,7 +51,7 @@
 					else {
 						trace ("Problem moving piece for " + getPlayerNum() + 
 														": all neighbors are NULL")
-					}//end if
+					//}//end if
 				}//end if
 			}//end if
 		}//end function

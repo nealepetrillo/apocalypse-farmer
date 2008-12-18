@@ -11,6 +11,8 @@
 		public static const WIDTH_OFFSET:uint = 40;
 		public static const HEIGHT_OFFSET:uint = 23;
 		public static const HEX_BOARD_FRAME:uint = 2;
+		public static const YOU_WON_FRAME:uint = 3;
+		public static const YOU_LOST_FRAME:uint = 4;
 		private var hexList:Array = new Array();
 		
 		public static const TERRAIN_STATS:Array = ["Productivity Bonus", "Defense Bonus", "Movement Value"]
@@ -58,6 +60,8 @@
 				
 		public var hMenu:HorizontalGameMenu;
 		public var vMenu:VerticalGameMenu;
+		
+		public var infoClip:MovieClip;
 		
 		public var selectedHex:Hex = null;
 		public var selectedPiece:GamePiece = null;
@@ -124,23 +128,56 @@
 			trace(randRow + "," + randCol);
 			var h1:Hex = hexList[randCol][randRow];
 			
-			h0.foundCommunity(new GamePiece(h0, 100, 100, GamePiece.ARMY_UNIT, players[0])); 
-			h1.foundCommunity(new GamePiece(h1, 100, 100, GamePiece.ARMY_UNIT, players[1]));
+			h0.foundCommunity(new GamePiece(h0, 100, 100, GamePiece.ARMY_UNIT, players[0]),true); 
+			h1.foundCommunity(new GamePiece(h1, 100, 100, GamePiece.ARMY_UNIT, players[1]),true);
 			
-			new GamePiece(h0, 30, 30, GamePiece.ARMY_UNIT,players[0]);
-			new GamePiece(h1, 30, 30, GamePiece.ARMY_UNIT,players[1]);
+			new GamePiece(h0, 100, 100, GamePiece.ARMY_UNIT,players[0]);
+			new GamePiece(h1, 100, 100, GamePiece.ARMY_UNIT,players[1]);
 			
 			
-			theTurn = new AFTurn(players[playersTurn],this);
+			theTurn = new AFTurn(this);
+			theTurn.startPhaseOne();
 			
 
 		}//end initializePlayers
 		public function nextTurn() {
-			updateMenus(selectedHex);
-			if (players[++playersTurn] == null)//increment playersTurn, and if it's the last player
-				playersTurn = 0;//then go back to the first player
-			theTurn = new AFTurn(players[playersTurn],this);
+			if (!checkGameOver()) {
+				updateMenus(selectedHex);
+				if (infoClip && contains(infoClip))
+					removeChild(infoClip);
+				if (players[++playersTurn] == null)//increment playersTurn, and if it's the last player
+					playersTurn = 0;//then go back to the first player
+				theTurn.startPhaseOne();
+			}//end if
 		}//end nextTurn
+		
+		public function checkGameOver():Boolean {
+			if (players[0].communities.length == 0) {
+				youLost();
+				return true;
+			} else if (players[1].communities.length == 0) {
+				youWon();
+				return true;
+			}else return false;
+		}//end checkGameOver
+		public function youWon() {
+			trace("YOU WON!");
+			gotoAndStop(YOU_WON_FRAME);
+			if (contains(hMenu))
+				removeChild(hMenu);
+			if (contains(vMenu))
+				removeChild(vMenu);
+		}//end youWon()
+		
+		public function youLost() {
+			trace("YOU LOST!");
+			gotoAndStop(YOU_LOST_FRAME);
+			if (contains(hMenu))
+				removeChild(hMenu);
+			if (contains(vMenu))
+				removeChild(vMenu);
+		}//end youLost
+			
 		
 		public function boardClick(h:Hex) {
 			if (playersTurn == HUMAN) {
@@ -177,9 +214,15 @@
 		}//end destroyPiece
 		
 		public function destroyCommunity(c:Community) {
-			c.myHex.myPlayer.communities.splice(c.myHex.myPlayer.communities.indexOf(c),1);
-			if (c.myHex.contains(c))
-				c.myHex.removeChild(c);
+			if (c.isHome) {//if it's the home community
+				if (c.myHex.myPlayer.playerNum == 1) {
+					youWon();
+				}else youLost();
+			}else {
+				c.myHex.myPlayer.communities.splice(c.myHex.myPlayer.communities.indexOf(c),1);
+				if (c.myHex.contains(c))
+					c.myHex.removeChild(c);
+			}//end if else
 		}//end destroyCommunity
 	}//end class
 	
