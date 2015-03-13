@@ -1,0 +1,3 @@
+Apocalypse Farmer is an Adobe Flash/Action Script 3 web game. Rules are discussed in the Core Mechanics Document available in the Downloads section. Generally speaking, you are the leader of a post-apocalyptic community. You must do what it takes to survive: grow your economy, build your armies, and extend your influence over the remainder of the world.
+
+By using this software you are bound by the terms and conditions set forth in the End User License Agreement found in the downloads section of this web site.
